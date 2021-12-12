@@ -1,0 +1,42 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    
+    env:
+      HASH: $(git rev-parse --short "$GITHUB_SHA")
+      TAG: ${GITHUB_REF#refs/*/}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ansucato/flaskr
+      
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+        
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          install: True
+     
+      - name: Build the Docker image
+        run: |
+          echo "Tag $env.TAG"
+          echo "hash $env.HASH"
+          docker build --platform linux/arm64/v8,linux/amd64 --tag ansucato/flaskr:latest
