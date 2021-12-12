@@ -37,6 +37,6 @@ jobs:
      
       - name: Build the Docker image
         run: |
-          echo "Tag $env.TAG"
-          echo "hash $env.HASH"
+          echo "Tag $TAG"
+          echo "hash $HASH"
           docker build --platform linux/arm64/v8,linux/amd64 --tag ansucato/flaskr:latest
