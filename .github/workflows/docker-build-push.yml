@@ -39,4 +39,6 @@ jobs:
         run: |
           echo "Tag $TAG"
           echo "hash $HASH"
-          docker build --platform linux/arm64/v8,linux/amd64 --tag ansucato/flaskr:latest
+          docker build --platform linux/arm64/v8,linux/amd64 --tag ansucato/flaskr:$(git rev-parse --short "$GITHUB_SHA")
+          docker tag ansucato/flaskr:$(git rev-parse --short "$GITHUB_SHA") ansucato/flaskr:latest
+          docker push ansucato/flaskr:$(git rev-parse --short "$GITHUB_SHA") ansucato/flaskr:latest
