@@ -11,10 +11,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    
-    env:
-      HASH: $(git rev-parse --short "$GITHUB_SHA")
-      TAG: ${GITHUB_REF#refs/*/}
 
     steps:
       - name: Checkout Repository
@@ -37,8 +33,6 @@ jobs:
      
       - name: Build the Docker image
         run: |
-          echo "Tag $TAG"
-          echo "hash $HASH"
-          docker build --platform linux/arm64/v8,linux/amd64 --tag ansucato/flaskr:$(git rev-parse --short "$GITHUB_SHA")
+          docker build --platform linux/arm64/v8,linux/amd64 --tag ansucato/flaskr:$(git rev-parse --short "$GITHUB_SHA") .
           docker tag ansucato/flaskr:$(git rev-parse --short "$GITHUB_SHA") ansucato/flaskr:latest
           docker push ansucato/flaskr:$(git rev-parse --short "$GITHUB_SHA") ansucato/flaskr:latest
