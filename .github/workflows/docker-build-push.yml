@@ -34,6 +34,7 @@ jobs:
       - name: Build the Docker image
         run: |
           docker build --platform linux/arm64/v8,linux/amd64 --tag ansucato/flaskr:$(git rev-parse --short "$GITHUB_SHA") .
+          docker image ls
 
       - name: Tag the Docker Image
         run: |
