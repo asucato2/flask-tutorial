@@ -33,4 +33,4 @@ jobs:
      
       - name: Build and push the Docker image
         run: |
-          docker build --platform linux/arm64/v8,linux/amd64 --tag ansucato/flaskr:$(git rev-parse --short "$GITHUB_SHA") --tag ansucato/flaskr:latest .
+          docker build --platform linux/arm64/v8,linux/amd64 --tag ansucato/flaskr:$(git rev-parse --short "$GITHUB_SHA") --tag ansucato/flaskr:latest --push .
